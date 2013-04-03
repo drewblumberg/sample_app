@@ -12,8 +12,13 @@ RSpec::Matchers.define :have_error_message do |message|
 	end
 end
 
-def sign_in(user)
-	visit signin_path
+def sign_in(user, edit_path = false)
+	
+	if edit_path
+		visit edit_user_path(user)
+	else
+		visit signin_path
+	end
 	
 	valid_signin(user)
 	
