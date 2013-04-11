@@ -5,6 +5,7 @@ describe "MicropostPages" do
 	subject { page }
 	
 	let(:user) { FactoryGirl.create(:user) }
+	let(:diff_user) { FactoryGirl.create(:user) }
 	before { sign_in user }
 	
 	describe "micropost creation" do
@@ -40,6 +41,12 @@ describe "MicropostPages" do
 			it "should delete a micropost" do
 				expect { click_link "delete" }.to change(Micropost, :count).by(-1)
 			end
+		end
+		
+		describe "should not have delete links next to unowned posts" do
+			before { visit user_path(diff_user) }
+			
+			it { should_not have_link('delete') }
 		end
 	end
 		

@@ -32,7 +32,59 @@ describe "Static pages" do
     		end
     	end
     end
-  end
+    
+    describe "microposts count should be correct" do
+    	let(:user) { FactoryGirl.create(:user) }
+    	before do
+    		sign_in user
+    		visit root_path
+    	end
+    	
+    	it { should have_selector('span', text: '0 microposts') }
+    	
+    	describe "with 1 micropost" do
+    		before do
+    			FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum") 
+    			visit root_path
+    		end
+    		
+    		it { should have_selector('span', text: '1 micropost') }
+    	end
+    	
+    	describe "with more than 1 micropost" do
+    		before do
+    			FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum") 
+    			FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
+    			visit root_path
+    		end
+    		
+    		it { should have_content('2 microposts') }
+    	end
+    end
+    
+    describe "micropost pagination" do	
+		let(:user2) { FactoryGirl.create(:user) }
+		
+		before do
+			sign_in user2
+			
+			50.times { FactoryGirl.create(:micropost, user: user2) }
+			visit root_path
+		end
+		
+			
+		it { should have_selector('div.pagination') }
+		
+		it "should list each micropost" do
+			user2.microposts.paginate(page: 1).each do |micropost|
+				page.should have_selector('li', text: micropost.content)
+			end
+		end
+	end
+  	
+end
+    
+    
   
 
   describe "Help page" do
