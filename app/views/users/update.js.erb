@@ -22,6 +22,7 @@ $('div#error_explanation').remove();
 
 	$('form.edit_user')[0].reset();
 	$('input#user_name').val('<%= @user.name %>');
+	$('input#user_email').val('<%= @user.email %>');
 
 	$('input[type="password"]')[0].focus();
 
