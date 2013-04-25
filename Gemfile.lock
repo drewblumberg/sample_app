@@ -118,6 +118,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-rails (0.2.2)
+      pry (>= 0.9.10)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -208,8 +210,9 @@ DEPENDENCIES
   growl (= 1.0.3)
   guard-rspec (= 1.2.1)
   guard-spork!
-  jquery-rails (= 2.0.2)
+  jquery-rails
   pg (= 0.12.2)
+  pry-rails
   rails (= 3.2.12)
   rb-fsevent (= 0.9.1)
   rspec-rails (= 2.11.0)

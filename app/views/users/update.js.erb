@@ -1,0 +1,28 @@
+$('div#error_explanation').remove();
+
+<% if @user.errors.any? %>
+
+	$('form.edit_user')[0].reset();	
+	
+	$('label[for="user_name"]')
+		.hide()
+		.prepend('<%= render "shared/error_messages_ajax", object: @user %>')
+		.fadeIn();
+
+<% else %>
+
+	$('<div></div>', {
+			text: 'Profile updated',
+			class: "alert alert-success"
+		})
+		.fadeIn()
+		.insertBefore('label[for="user_name"]')
+		.delay(1000)
+		.fadeOut();
+
+	$('form.edit_user')[0].reset();
+	$('input#user_name').val('<%= @user.name %>');
+
+	$('input[type="password"]')[0].focus();
+
+<% end %>
