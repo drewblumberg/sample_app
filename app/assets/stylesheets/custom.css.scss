@@ -184,12 +184,25 @@ input {
 	ul {
 		list-style: none;
 		margin: 0 0 18px 0;
+		li {
+			border-top:none;
+		}
 	}
 }
 
 .field_with_errors {
 	@extend .control-group;
 	@extend .error;
+}
+
+.char_count {
+	float: right;
+	font-size: 1.2em;
+	padding: 7px;
+	color: #ADD8E6;
+	&.low {
+		color: #FF0000;
+	}
 }
 
 /* users index */

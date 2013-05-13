@@ -1,0 +1,33 @@
+var $this = $('form#new_micropost');
+$('div#error_explanation').remove();
+
+<% if @micropost.errors.any? %>
+	
+	// Reset form and add error messages
+	$this[0].reset();	
+	
+	$this.hide()
+		.prepend('<%= render "shared/error_messages_ajax", object: @micropost %>')
+		.fadeIn();
+
+<% else %>
+
+	// Add success message
+	$('<div></div>', {
+				text: 'Micropost posted!',
+				class: "alert alert-success"
+			})
+			.fadeIn()
+			.insertBefore('form#new_micropost')
+			.delay(1000)
+			.fadeOut();
+			
+	// Refresh feed, change post count, and reset form	
+	$("ol.microposts").empty()
+		.html("<%= escape_javascript(render partial: 'shared/feed_item', collection: @feed_items) %>");
+	$("#post_count").text("<%= pluralize(current_user.microposts.count, 'micropost') %>");	
+	$("div.char_count").text("140");
+	$this[0].reset();
+	
+		
+<% end %>

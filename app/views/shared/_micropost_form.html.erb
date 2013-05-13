@@ -1,7 +1,8 @@
-<%= form_for(@micropost) do |f| %>
+<%= form_for(@micropost, remote: true) do |f| %>
 	<%= render 'shared/error_messages' , object: f.object %>
 	<div class="field">
-		<%= f.text_area :content, placeholder: "Create new micropost..." %>
+		<%= f.text_area :content, placeholder: "Create new micropost...", onkeyup: "charCount(this)" %>
 	</div>
 	<%= f.submit "Post", class: "btn btn-large btn-primary" %>
+	<div class="char_count">140</div> 
 <% end %>
